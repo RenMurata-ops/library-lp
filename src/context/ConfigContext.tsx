@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-import { getConfig, updateConfigData } from '../lib/supabase';
+import { getConfig, updateConfigData } from '../lib/database';
 
 export interface ButtonConfig {
     label: string;
