@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useConfig, type Article, type ContentBlock } from '../context/ConfigContext';
 import { motion } from 'framer-motion';
 
 const ArticleEditor = () => {
-    const { slug } = useParams<{ slug: string }>();
+    const { slug: paramSlug } = useParams<{ slug: string }>();
+    const location = useLocation();
+    // If accessing /new route directly, paramSlug is undefined, so we manually set it to 'new'
+    const slug = paramSlug || (location.pathname.endsWith('/new') ? 'new' : undefined);
     const { config, updateConfig } = useConfig();
     const navigate = useNavigate();
     const [article, setArticle] = useState<Article | null>(null);
