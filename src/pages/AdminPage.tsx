@@ -68,7 +68,6 @@ const AdminPage = () => {
     const handleSave = () => {
         updateConfig(localConfig);
         setSaved(true);
-        setTimeout(() => setSaved(false), 2000);
     };
 
     // Notion-style input component with IME support
