@@ -11,7 +11,9 @@ const ArticleEditor = () => {
     const [saved, setSaved] = useState(false);
 
     useEffect(() => {
+        console.log('ArticleEditor useEffect:', { slug, configArticles: config.articles?.length });
         if (slug === 'new') {
+            console.log('Creating new article...');
             // Create new article
             const newArticle: Article = {
                 title: '新しい記事',
