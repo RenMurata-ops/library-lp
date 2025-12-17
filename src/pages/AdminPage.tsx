@@ -75,10 +75,6 @@ const AdminPage = () => {
         const [isComposing, setIsComposing] = React.useState(false);
         const [localValue, setLocalValue] = React.useState(value);
 
-        React.useEffect(() => {
-            setLocalValue(value);
-        }, [value]);
-
         const handleCompositionStart = () => {
             setIsComposing(true);
         };
@@ -90,7 +86,6 @@ const AdminPage = () => {
         };
 
         const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            setLocalValue(e.target.value);
             // IME変換中でなければ即座に更新
             if (!isComposing) {
                 handleChange(e);
@@ -105,7 +100,7 @@ const AdminPage = () => {
                 <input
                     type={type}
                     name={name}
-                    value={localValue}
+                    value={value}
                     onChange={handleInputChange}
                     onCompositionStart={handleCompositionStart}
                     onCompositionEnd={handleCompositionEnd}
