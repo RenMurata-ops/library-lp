@@ -16,8 +16,7 @@ export const getConfig = async (): Promise<any | null> => {
     try {
         const response = await fetch(`${POSTGREST_URL}/config?limit=1`, {
             headers: {
-                'Accept': 'application/json',
-                'Prefer': 'return=representation'
+                'Accept': 'application/json'
             }
         });
 
