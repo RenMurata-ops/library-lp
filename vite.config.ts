@@ -10,5 +10,6 @@ export default defineConfig({
   preview: {
     host: true,
     port: parseInt(process.env.PORT || '5173'),
+    allowedHosts: ['library-lp-production.up.railway.app', '.up.railway.app'],
   },
 })
