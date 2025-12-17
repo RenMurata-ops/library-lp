@@ -106,7 +106,8 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
                 const supabaseConfig = await getConfig();
 
                 if (supabaseConfig && supabaseConfig.data) {
-                    setConfig(supabaseConfig.data);
+                    // Merge with default config to ensure all fields exist
+                    setConfig({ ...defaultConfig, ...supabaseConfig.data });
                 } else {
                     // Fallback to localStorage if Supabase fails
                     const saved = localStorage.getItem('library-config');
