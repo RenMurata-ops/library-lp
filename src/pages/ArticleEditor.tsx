@@ -30,7 +30,7 @@ const ArticleEditor = () => {
                 updatedAt: new Date().toISOString()
             };
             setArticle(newArticle);
-        } else {
+        } else if (config.articles && config.articles.length > 0) {
             // Find existing article
             const existingArticle = config.articles.find(
                 a => a.slug === slug || a.link === `/article/${slug}`
@@ -43,7 +43,7 @@ const ArticleEditor = () => {
                 setArticle(existingArticle);
             }
         }
-    }, [slug, config.articles]);
+    }, [slug]);
 
     const handleSave = () => {
         if (!article) return;
