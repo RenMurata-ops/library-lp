@@ -73,7 +73,6 @@ const AdminPage = () => {
     // Notion-style input component with IME support
     const NotionInput = ({ label, name, value, placeholder, type = "text" }: { label: string, name: string, value: string, placeholder?: string, type?: string }) => {
         const [isComposing, setIsComposing] = React.useState(false);
-        const [localValue, setLocalValue] = React.useState(value);
 
         const handleCompositionStart = () => {
             setIsComposing(true);
