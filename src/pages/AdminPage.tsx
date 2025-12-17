@@ -70,45 +70,22 @@ const AdminPage = () => {
         setSaved(true);
     };
 
-    // Notion-style input component with IME support
-    const NotionInput = ({ label, name, value, placeholder, type = "text" }: { label: string, name: string, value: string, placeholder?: string, type?: string }) => {
-        const [isComposing, setIsComposing] = React.useState(false);
-
-        const handleCompositionStart = () => {
-            setIsComposing(true);
-        };
-
-        const handleCompositionEnd = (e: React.CompositionEvent<HTMLInputElement>) => {
-            setIsComposing(false);
-            // Composition終了時に値を更新
-            handleChange(e as any);
-        };
-
-        const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            // IME変換中でなければ即座に更新
-            if (!isComposing) {
-                handleChange(e);
-            }
-        };
-
-        return (
-            <div className="group mb-6">
-                <label className="block text-xs text-[#1a0f0a]/40 font-sans mb-1 transition-colors group-hover:text-[#1a0f0a]/60">
-                    {label}
-                </label>
-                <input
-                    type={type}
-                    name={name}
-                    value={value}
-                    onChange={handleInputChange}
-                    onCompositionStart={handleCompositionStart}
-                    onCompositionEnd={handleCompositionEnd}
-                    placeholder={placeholder}
-                    className="w-full bg-transparent border-b border-library-walnut/10 focus:border-library-gold/50 text-[#1a0f0a] font-serif text-lg py-1 outline-none transition-colors placeholder-library-ink/20"
-                />
-            </div>
-        );
-    };
+    // Simple input component
+    const NotionInput = ({ label, name, value, placeholder, type = "text" }: { label: string, name: string, value: string, placeholder?: string, type?: string }) => (
+        <div className="group mb-6">
+            <label className="block text-xs text-[#1a0f0a]/40 font-sans mb-1 transition-colors group-hover:text-[#1a0f0a]/60">
+                {label}
+            </label>
+            <input
+                type={type}
+                name={name}
+                defaultValue={value}
+                onBlur={handleChange}
+                placeholder={placeholder}
+                className="w-full bg-transparent border-b border-library-walnut/10 focus:border-library-gold/50 text-[#1a0f0a] font-serif text-lg py-1 outline-none transition-colors placeholder-library-ink/20"
+            />
+        </div>
+    );
 
     return (
         <div className="min-h-screen bg-[#f5e6d3] text-[#1a0f0a] p-8 md:p-16 font-sans">
