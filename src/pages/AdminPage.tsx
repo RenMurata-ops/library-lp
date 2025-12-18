@@ -60,6 +60,14 @@ const AdminPage = () => {
                     body2: { ...prev.body2, [field]: value }
                 }));
             }
+        } else if (name.startsWith('secondaryButtons.')) {
+            const [_, indexStr, field] = name.split('.');
+            const index = parseInt(indexStr);
+            setLocalConfig(prev => {
+                const newButtons = [...(prev.secondaryButtons || [])];
+                newButtons[index] = { ...newButtons[index], [field]: value };
+                return { ...prev, secondaryButtons: newButtons };
+            });
         } else {
             setLocalConfig(prev => ({ ...prev, [name]: value }));
         }
@@ -167,6 +175,56 @@ const AdminPage = () => {
                                     className="w-full bg-transparent border border-library-walnut/10 focus:border-library-gold/50 text-[#1a0f0a] font-serif text-lg p-4 outline-none transition-colors placeholder-library-ink/20 resize-y rounded-sm"
                                 />
                             </div>
+                        </div>
+                    </section>
+
+                    {/* Secondary Buttons Section */}
+                    <section>
+                        <h2 className="text-2xl font-serif text-[#1a0f0a] mb-8 flex items-center gap-4">
+                            <span className="w-1 h-8 bg-library-gold/50 rounded-full"></span>
+                            セカンダリボタン (上部)
+                        </h2>
+                        <div className="pl-5 space-y-4">
+                            {localConfig.secondaryButtons?.map((button, index) => (
+                                <div key={index} className="flex gap-4 items-start p-4 bg-white/5 rounded border border-white/10 group">
+                                    <div className="flex-grow grid md:grid-cols-3 gap-4">
+                                        <NotionInput
+                                            label="ラベル"
+                                            name={`secondaryButtons.${index}.label`}
+                                            value={button.label}
+                                        />
+                                        <NotionInput
+                                            label="リンク"
+                                            name={`secondaryButtons.${index}.link`}
+                                            value={button.link}
+                                        />
+                                        <NotionInput
+                                            label="色"
+                                            name={`secondaryButtons.${index}.color`}
+                                            value={button.color}
+                                        />
+                                    </div>
+                                    <button
+                                        onClick={() => {
+                                            const newButtons = [...(localConfig.secondaryButtons || [])];
+                                            newButtons.splice(index, 1);
+                                            setLocalConfig(prev => ({ ...prev, secondaryButtons: newButtons }));
+                                        }}
+                                        className="text-red-600 hover:text-red-700 p-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                                    >
+                                        削除
+                                    </button>
+                                </div>
+                            ))}
+                            <button
+                                onClick={() => setLocalConfig(prev => ({
+                                    ...prev,
+                                    secondaryButtons: [...(prev.secondaryButtons || []), { label: "New Button", link: "#", color: "bg-[#3e2723]" }]
+                                }))}
+                                className="w-full py-4 border-2 border-dashed border-library-walnut/30 text-[#1a0f0a]/50 hover:border-library-gold/50 hover:text-library-gold transition-colors rounded-sm font-serif italic"
+                            >
+                                + ボタンを追加
+                            </button>
                         </div>
                     </section>
 

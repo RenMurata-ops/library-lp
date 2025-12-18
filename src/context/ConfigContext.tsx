@@ -58,6 +58,7 @@ export interface AppConfig {
     body2: Body2Config;
     aboutTitle: string;
     aboutText: string;
+    secondaryButtons: ButtonConfig[];
     fontFamily: string;
 }
 
@@ -103,6 +104,10 @@ const defaultConfig: AppConfig = {
 
   Let the Archive be your guide, your refuge, and your inspiration. Open a book, turn a page, and embark on a voyage that transcends time.
   `,
+    secondaryButtons: [
+        { label: "Explore Archives", link: "#collection", color: "bg-[#3e2723]" },
+        { label: "Read More", link: "#about", color: "bg-[#5d4037]" }
+    ],
     fontFamily: "Playfair Display"
 };
 
