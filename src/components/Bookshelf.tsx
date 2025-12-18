@@ -4,12 +4,12 @@ import { useConfig } from '../context/ConfigContext';
 
 // Fallback books if config is empty
 const defaultBooks = [
-    { id: 1, title: "Design Systems", author: "A. Rossi", color: "bg-[#3e2723]", height: "h-72", link: "" },
-    { id: 2, title: "User Experience", author: "J. Nielsen", color: "bg-[#2d1b18]", height: "h-64", link: "" },
-    { id: 3, title: "Typography", author: "R. Bringhurst", color: "bg-[#4e342e]", height: "h-68", link: "" },
-    { id: 4, title: "Color Theory", author: "J. Itten", color: "bg-[#5d4037]", height: "h-70", link: "" },
-    { id: 5, title: "Grid Systems", author: "J. Müller", color: "bg-[#1a0f0a]", height: "h-60", link: "" },
-    { id: 6, title: "Interaction", author: "D. Norman", color: "bg-[#3e2723]", height: "h-66", link: "" },
+    { id: 1, title: "Design Systems", author: "A. Rossi", color: "bg-[#3e2723]", height: "h-72", link: "", slug: "" },
+    { id: 2, title: "User Experience", author: "J. Nielsen", color: "bg-[#2d1b18]", height: "h-64", link: "", slug: "" },
+    { id: 3, title: "Typography", author: "R. Bringhurst", color: "bg-[#4e342e]", height: "h-68", link: "", slug: "" },
+    { id: 4, title: "Color Theory", author: "J. Itten", color: "bg-[#5d4037]", height: "h-70", link: "", slug: "" },
+    { id: 5, title: "Grid Systems", author: "J. Müller", color: "bg-[#1a0f0a]", height: "h-60", link: "", slug: "" },
+    { id: 6, title: "Interaction", author: "D. Norman", color: "bg-[#3e2723]", height: "h-66", link: "", slug: "" },
 ];
 
 const Bookshelf = () => {
@@ -24,7 +24,8 @@ const Bookshelf = () => {
             author: article.author,
             color: article.color || "bg-[#3e2723]",
             height: ["h-72", "h-64", "h-68", "h-70", "h-60", "h-66"][index % 6],
-            link: article.link
+            link: article.link,
+            slug: article.slug
         }))
         : defaultBooks;
 
@@ -78,7 +79,15 @@ const Bookshelf = () => {
                                     <motion.div
                                         key={book.id}
                                         className={`relative ${book.height} w-16 md:w-20 rounded-l-sm rounded-r-md shadow-[5px_0_15px_rgba(0,0,0,0.7)] cursor-pointer group transform-style-3d`}
-                                        onClick={() => book.link ? window.open(book.link, '_blank') : navigate(`/book/${book.id}`)}
+                                        onClick={() => {
+                                            if (book.slug) {
+                                                navigate(`/article/${book.slug}`);
+                                            } else if (book.link) {
+                                                window.open(book.link, '_blank');
+                                            } else {
+                                                navigate(`/book/${book.id}`);
+                                            }
+                                        }}
                                         whileHover={{
                                             y: -30,
                                             scale: 1.05,
