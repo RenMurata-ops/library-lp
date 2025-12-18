@@ -14,6 +14,11 @@ const ArticleEditor = () => {
     const [saved, setSaved] = useState(false);
 
     useEffect(() => {
+        // If we already have the article we're looking for, don't reset it
+        if (article && (slug === 'new' || article.slug === slug || article.link === `/article/${slug}`)) {
+            return;
+        }
+
         console.log('ArticleEditor useEffect:', { slug, configArticles: config.articles?.length });
         if (slug === 'new') {
             console.log('Creating new article...');
@@ -41,14 +46,18 @@ const ArticleEditor = () => {
                 a => a.slug === slug || a.link === `/article/${slug}`
             );
             if (existingArticle) {
+                console.log('Found existing article:', existingArticle.title);
                 // Ensure content array exists
-                if (!existingArticle.content) {
-                    existingArticle.content = [];
+                const articleToSet = { ...existingArticle };
+                if (!articleToSet.content) {
+                    articleToSet.content = [];
                 }
-                setArticle(existingArticle);
+                setArticle(articleToSet);
+            } else {
+                console.log('Article not found for slug:', slug);
             }
         }
-    }, [slug]);
+    }, [slug, config.articles]);
 
     const handleSave = () => {
         if (!article) return;
