@@ -144,6 +144,32 @@ const AdminPage = () => {
                         </div>
                     </section>
 
+                    {/* About Section (Top) */}
+                    <section>
+                        <h2 className="text-2xl font-serif text-[#1a0f0a] mb-8 flex items-center gap-4">
+                            <span className="w-1 h-8 bg-library-gold/50 rounded-full"></span>
+                            アバウトセクション (上部)
+                        </h2>
+                        <div className="pl-5 space-y-2">
+                            <NotionInput
+                                label="タイトル"
+                                name="aboutTitle"
+                                value={localConfig.aboutTitle}
+                                placeholder="例: About the Archive"
+                            />
+                            <div className="group mb-6">
+                                <label className="block text-xs text-[#1a0f0a]/40 font-sans mb-1">本文テキスト</label>
+                                <textarea
+                                    name="aboutText"
+                                    value={localConfig.aboutText}
+                                    onChange={handleChange}
+                                    rows={10}
+                                    className="w-full bg-transparent border border-library-walnut/10 focus:border-library-gold/50 text-[#1a0f0a] font-serif text-lg p-4 outline-none transition-colors placeholder-library-ink/20 resize-y rounded-sm"
+                                />
+                            </div>
+                        </div>
+                    </section>
+
                     {/* Articles Section */}
                     <section>
                         <h2 className="text-2xl font-serif text-[#1a0f0a] mb-8 flex items-center gap-4">
@@ -253,11 +279,11 @@ const AdminPage = () => {
                         </div>
                     </section>
 
-                    {/* About Section */}
+                    {/* Librarian's Desk Section (Bottom) */}
                     <section>
                         <h2 className="text-2xl font-serif text-[#1a0f0a] mb-8 flex items-center gap-4">
                             <span className="w-1 h-8 bg-library-gold/50 rounded-full"></span>
-                            アバウトセクション (About the Archive)
+                            司書のデスク (下部セクション)
                         </h2>
                         <div className="pl-5 space-y-6">
                             <div className="group mb-6">
